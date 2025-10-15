@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WOVEN WONDERS</title>
+    <style>
+        :root {
+            /* Gradient backgrounds */
+            --primary-bg-gradient: linear-gradient(135deg, #F8E7E0 0%, #F7F6F2 100%);
+            --section-bg-gradient: linear-gradient(120deg, #F7D9C4 0%, #F3E1DD 100%);
+            --frame-bg-gradient: linear-gradient(135deg, #F7E1D7 0%, #F3E1DD 100%);
+            --modal-bg: rgba(247,217,196,0.92);
+
+            /* Pastel & accent colors */
+            --primary-text: #3E0703;
+            --primary-accent: #8C1007;
+            --nav-bg: #660B05;
+            --frame-border: #8C1007;
+            --frame-hover-bg: #FFE7A0;
+            --crochet-title: #8C1007;
+            --crochet-quote: #660B05;
+            --crochet-card-border: #8C1007;
+            --crochet-card-bg: #F7E1D7;
+            --crochet-card-hover: #F8C8DC;
+            --crochet-name: #660B05;
+            --crochet-price: #8C1007;
+            --silk-title: #8C1007;
+            --silk-quote: #660B05;
+            --silk-card-border: #660B05;
+            --silk-card-bg: #F3E1DD;
+            --silk-card-hover: #F7D9C4;
+            --silk-name: #8C1007;
+            --silk-price: #660B05;
+            --button-bg: #8C1007;
+            --button-hover-bg: #660B05;
+            --button-text: #F7E1D7;
+        }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+            background: var(--primary-bg-gradient);
+            color: var(--primary-text);
+        }
+        header {
+            text-align: center;
+            padding: 2rem 1rem 1rem 1rem;
+            font-size: 2.5rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-accent);
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            background: var(--nav-bg);
+            padding: 0.75rem 0;
+            font-size: 1.1rem;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+        nav a.active, nav a:hover {
+            background: var(--primary-accent);
+            color: #fff;
+        }
+        .section {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: var(--section-bg-gradient);
+            border-radius: 18px;
+            box-shadow: 0 2px 12px rgba(140,16,7,0.07);
+        }
+        .quote {
+            font-size: 1.3rem;
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-text);
+        }
+        .frames-row {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .frame {
+            background: var(--frame-bg-gradient);
+            border: 3px solid var(--frame-border);
+            color: var(--primary-text);
+            padding: 2rem 3rem;
+            font-size: 1.3rem;
+            border-radius: 18px;
+            cursor: pointer;
+            box-shadow: 0 2px 12px rgba(140,16,7,0.07);
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+            min-width: 220px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        .frame:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 18px rgba(140,16,7,0.13);
+            background: var(--frame-hover-bg);
+            color: var(--primary-text);
+        }
+        .frame-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 0.5rem;
+        }
+        /* Crochet Section */
+        #crochet .section-title {
+            color: var(--crochet-title);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        #crochet .quote {
+            color: var(--crochet-quote);
+        }
+        #crochet .product-card {
+            background: var(--crochet-card-bg);
+            border: 2px solid var(--crochet-card-border);
+        }
+        #crochet .product-card:hover {
+            background: var(--crochet-card-hover);
+        }
+        #crochet .product-name {
+            color: var(--crochet-name);
+        }
+        #crochet .product-price {
+            color: var(--crochet-price);
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+        }
+        .product-card {
+            border-radius: 14px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(140,16,7,0.06);
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+        }
+        .product-card img {
+            width: 100%;
+            max-width: 160px;
+            border-radius: 10px;
+            margin-bottom: 0.7rem;
+        }
+        .product-name {
+            font-weight: 600;
+        }
+        .product-price {
+            font-weight: 500;
+        }
+        /* Silk Section */
+        #silk {
+            background: var(--section-bg-gradient);
+        }
+        #silk .section-title {
+            color: var(--silk-title);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        #silk .quote {
+            color: var(--silk-quote);
+        }
+        #silk .product-card {
+            background: var(--silk-card-bg);
+            border: 2px solid var(--silk-card-border);
+        }
+        #silk .product-card:hover {
+            background: var(--silk-card-hover);
+        }
+        #silk .product-name {
+            color: var(--silk-name);
+        }
+        #silk .product-price {
+            color: var(--silk-price);
+        }
+        /* Modal */
+        .modal-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--modal-bg);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: #fff;
+            border-radius: 18px;
+            display: flex;
+            flex-direction: row;
+            max-width: 600px;
+            width: 90vw;
+            box-shadow: 0 6px 32px rgba(140,16,7,0.18);
+            overflow: hidden;
+        }
+        .modal-img {
+            flex: 1;
+            background: var(--primary-bg-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .modal-img img {
+            max-width: 220px;
+            border-radius: 12px;
+        }
+        .modal-details {
+            flex: 1;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .modal-details .product-name {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .modal-details .product-price {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .close-btn {
+            align-self: flex-end;
+            background: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: auto;
+            transition: background 0.2s;
+        }
+        .close-btn:hover {
+            background: var(--button-hover-bg);
+        }
+        /* Enquiry Section */
+        #enquiry .section-title {
+            color: var(--primary-accent);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .contact-details {
+            font-size: 1.1rem;
+            background: var(--primary-bg-gradient);
+            border-radius: 12px;
+            padding: 1.5rem;
+            max-width: 400px;
+            margin: 2rem auto;
+            box-shadow: 0 2px 10px rgba(140,16,7,0.07);
+        }
+        .contact-details span {
+            font-size: 1.3rem;
+            margin-right: 0.5rem;
+        }
+        /* Responsive */
+        @media (max-width: 700px) {
+            header {
+                font-size: 1.7rem;
+                padding: 1.2rem 0.5rem 0.5rem 0.5rem;
+            }
+            nav {
+                gap: 0.7rem;
+                font-size: 1rem;
+            }
+            .frames-row {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .modal-content {
+                flex-direction: column;
+                max-width: 95vw;
+            }
+            .modal-img, .modal-details {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>WOVEN WONDERS</header>
+    <nav>
+        <a href="#home" class="active" onclick="showSection('home', this)">🏠 Home</a>
+        <a href="#crochet" onclick="showSection('crochet', this)">🧶 Crochet Creations</a>
+        <a href="#silk" onclick="showSection('silk', this)">💍 Silk Thread Jewellery</a>
+        <a href="#enquiry" onclick="showSection('enquiry', this)">📞 Enquiry</a>
+    </nav>
+    <!-- Home Section -->
+    <div id="home" class="section">
+        <div class="quote">"Handcrafted wonders woven with love and tradition."</div>
+        <div class="frames-row">
+            <div class="frame" onclick="showSection('crochet')">
+                <!-- Knitting wool SVG icon -->
+                <svg class="frame-icon" viewBox="0 0 64 64" fill="none">
+                    <circle cx="32" cy="32" r="28" stroke="#8C1007" stroke-width="3" fill="#F8C8DC"/>
+                    <ellipse cx="32" cy="32" rx="18" ry="14" fill="#F7E1D7"/>
+                    <path d="M20 44 Q32 54 44 44" stroke="#8C1007" stroke-width="2" fill="none"/>
+                    <line x1="18" y1="18" x2="46" y2="46" stroke="#660B05" stroke-width="2"/>
+                </svg>
+                Crochet Creations
+            </div>
+            <div class="frame" onclick="showSection('silk')">
+                <!-- Silk thread jewellery SVG icon -->
+                <svg class="frame-icon" viewBox="0 0 64 64" fill="none">
+                    <ellipse cx="32" cy="32" rx="24" ry="16" stroke="#8C1007" stroke-width="3" fill="#F7D9C4"/>
+                    <circle cx="32" cy="32" r="8" fill="#F3E1DD" stroke="#660B05" stroke-width="2"/>
+                    <rect x="28" y="44" width="8" height="8" rx="4" fill="#8C1007"/>
+                    <path d="M32 40 L32 52" stroke="#660B05" stroke-width="2"/>
+                </svg>
+                Silk Thread Jewellery
+            </div>
+        </div>
+    </div>
+    <!-- Crochet Section -->
+    <div id="crochet" class="section" style="display:none;">
+        <div class="section-title">🧶 Crochet Creations</div>
+        <div class="quote">"Crocheting is the gentle art of turning yarn into memories."</div>
+        <div class="product-grid">
+            <div class="product-card" onclick="showModal('crochet', 0)">
+                <img src="woven wonders website/images/1.jpg" alt="Bow Keychain">
+                <div class="product-name">Bow Keychain</div>
+                <div class="product-price">₹80</div>
+            </div>
+            <div class="product-card" onclick="showModal('crochet', 1)">
+                <img src="woven wonders website/images/4.jpg" alt="Floral Butterfly Keychain">
+                <div class="product-name">Floral Butterfly Keychain</div>
+                <div class="product-price">₹150</div>
+            </div>
+            <div class="product-card" onclick="showModal('crochet', 2)">
+                <img src="woven wonders website/images/10.jpg" alt="Victorian Rose Keychain">
+                <div class="product-name">Victorian Rose Keychain</div>
+                <div class="product-price">₹80</div>
+            </div>
+            <div class="product-card" onclick="showModal('crochet', 3)">
+                <img src="woven wonders website/images/11.jpg" alt="Sunny Bloom Keychain">
+                <div class="product-name">Sunny Bloom Keychain</div>
+                <div class="product-price">₹120</div>
+            </div>
+            <div class="product-card" onclick="showModal('crochet', 4)">
+                <img src="woven wonders website/images/12.jpg" alt="Roselet Bloom Charm">
+                <div class="product-name">Roselet Bloom Charm</div>
+                <div class="product-price">₹120</div>
+            </div>
+            <div class="product-card" onclick="showModal('crochet', 5)">
+                <img src="woven wonders website/images/2.png" alt="The Dainty Bow Phone Charm">
+                <div class="product-name">The Dainty Bow Phone Charm</div>
+                <div class="product-price">₹60</div>
+            </div>
+            <div class="product-card" onclick="showModal('crochet', 6)">
+                <img src="woven wonders website/images/5.jpg" alt="Ivory Bloom Phone Charm">
+                <div class="product-name">Ivory Bloom Phone Charm</div>
+                <div class="product-price">₹90</div>
+            </div>
+            <div class="product-card" onclick="showModal('crochet', 7)">
+                <img src="woven wonders website/images/6.png" alt="Rose Phone Charm">
+                <div class="product-name">Rose Phone Charm</div>
+                <div class="product-price">₹90</div>
+            </div>
+            <div class="product-card" onclick="showModal('crochet', 8)">
+                <img src="woven wonders website/images/8.jpg" alt="Tulip Scrunchie">
+                <div class="product-name">Tulip Scrunchie</div>
+                <div class="product-price">₹200</div>
+            </div>
+            <div class="product-card" onclick="showModal('crochet', 9)">
+                <img src="woven wonders website/images/9.jpg" alt="Berry Bloom Scrunchie">
+                <div class="product-name">Berry Bloom Scrunchie</div>
+                <div class="product-price">₹200</div>
+            </div>
+            <div class="product-card" onclick="showModal('crochet', 10)">
+                <img src="woven wonders website/images/7.png" alt="Forever Rose">
+                <div class="product-name">Forever Rose</div>
+                <div class="product-price">₹200</div>
+            </div>
+            <div class="product-card" onclick="showModal('crochet', 11)">
+                <img src="woven wonders website/images/13.jpg" alt="Midnight Blooms">
+                <div class="product-name">Midnight Blooms</div>
+                <div class="product-price">₹200</div>
+            </div>
+            <div class="product-card" onclick="showModal('crochet', 12)">
+                <img src="woven wonders website/images/3.png" alt="Rose Hairclip">
+                <div class="product-name">Rose Hairclip</div>
+                <div class="product-price">₹250</div>
+            </div>
+            <div class="product-card" onclick="showModal('crochet', 13)">
+                <img src="woven wonders website/images/14.jpg" alt="Blue Bloom Earrings">
+                <div class="product-name">Blue Bloom Earrings</div>
+                <div class="product-price">₹80</div>
+            </div>
+            <div class="product-card" onclick="showModal('crochet', 14)">
+                <img src="woven wonders website/images/15.jpg" alt="Cottage Core Heart Earrings">
+                <div class="product-name">Cottage Core Heart Earrings</div>
+                <div class="product-price">₹140</div>
+            </div>
+        </div>
+    </div>
+    <!-- Silk Section -->
+    <div id="silk" class="section" style="display:none;">
+        <div class="section-title">💍 Silk Thread Jewellery</div>
+        <div class="quote"><b>"Jewellery woven with silk, shining with tradition and elegance."</b></div>
+        <div class="quote">"NOTE: Price depends on design complexity."</div>
+        <div class="product-grid">
+            <div class="product-card" onclick="showModal('silk', 0)">
+                <img src="Woven Wonders Website/images/16.jpg" alt="The Midnight Pearl Bracelet">
+                <div class="product-name">The Midnight Pearl Bracelet</div>
+                <div class="product-price">₹80</div>
+            </div>
+            <div class="product-card" onclick="showModal('silk', 1)">
+                <img src="Woven Wonders Website/images/28.jpg" alt="Blue Harmony Bracelet">
+                <div class="product-name">Blue Harmony Bracelet</div>
+                <div class="product-price">₹120</div>
+            </div>
+            <div class="product-card" onclick="showModal('silk', 2)">
+                <img src="Woven Wonders Website/images/29.jpg" alt="Pink Harmony Bracelet">
+                <div class="product-name">Pink Harmony Bracelet</div>
+                <div class="product-price">₹120</div>
+            </div>
+            <div class="product-card" onclick="showModal('silk', 3)">
+                <img src="Woven Wonders Website/images/17.jpg" alt="Royal Bloom Jhumka Earrings">
+                <div class="product-name">Royal Bloom Jhumka Earrings</div>
+                <div class="product-price">₹50</div>
+            </div>
+            <div class="product-card" onclick="showModal('silk', 4)">
+                <img src="Woven Wonders Website/images/33.jpg" alt="Ivory Bloom Jhumka Earrings">
+                <div class="product-name">Ivory Bloom Jhumka Earrings</div>
+                <div class="product-price">₹50</div>
+            </div>
+            <div class="product-card" onclick="showModal('silk', 5)">
+                <img src="Woven Wonders Website/images/35.jpg" alt="Forest Cross Bangles">
+                <div class="product-name">Forest Cross Bangles</div>
+                <div class="product-price">₹80</div>
+            </div>
+            <div class="product-card" onclick="showModal('silk', 6)">
+                <img src="Woven Wonders Website/images/34.jpg" alt="The Aurora Braid Bangle">
+                <div class="product-name">The Aurora Braid Bangle</div>
+                <div class="product-price">₹120</div>
+            </div>
+            <div class="product-card" onclick="showModal('silk', 7)">
+                <img src="Woven Wonders Website/images/19.jpg" alt="The Rhythm wrap Bangle">
+                <div class="product-name">The Rhythm wrap Bangle</div>
+                <div class="product-price">₹120</div>
+            </div>
+            <div class="product-card" onclick="showModal('silk', 8)">
+                <img src="Woven Wonders Website/images/18.jpg" alt="Twilight Bangles">
+                <div class="product-name">Twilight Bangles</div>
+                <div class="product-price">₹80</div>
+            </div>
+            <div class="product-card" onclick="showModal('silk', 9)">
+                <img src="Woven Wonders Website/images/22.jpg" alt="Tricolor Serenity Bangles">
+                <div class="product-name">Tricolor Serenity Bangles</div>
+                <div class="product-price">₹50/set</div>
+            </div>
+            <div class="product-card" onclick="showModal('silk', 10)">
+                <img src="Woven Wonders Website/images/23.jpg" alt="Twilight Bangle Set">
+                <div class="product-name">Twilight Bangle Set</div>
+                <div class="product-price">₹250</div>
+            </div>
+            <div class="product-card" onclick="showModal('silk', 11)">
+                <img src="Woven Wonders Website/images/21.jpg" alt="The Festive Clover Bangles">
+                <div class="product-name">The Festive Clover Bangles</div>
+                <div class="product-price">₹150/piece</div>
+            </div> 
+            <div class="product-card" onclick="showModal('silk', 12)">
+                <img src="Woven Wonders Website/images/24.jpg" alt="Golden Ember Bangles">
+                <div class="product-name">Golden Ember Bangles</div>
+                <div class="product-price">₹300</div>
+            </div>
+            <div class="product-card" onclick="showModal('silk', 13)">
+                <img src="Woven Wonders Website/images/30.jpg" alt="Crimson Bloom Bangles">
+                <div class="product-name">Crimson Bloom Bangles</div>
+                <div class="product-price">₹120</div>
+            </div>
+            <div class="product-card" onclick="showModal('silk', 14)">
+                <img src="Woven Wonders Website/images/31.jpg" alt="Neelambari Bangle Set">
+                <div class="product-name">Neelambari Bangle Set</div>
+                <div class="product-price">₹150</div>
+            </div>
+            <div class="product-card" onclick="showModal('silk', 15)">
+                <img src="Woven Wonders Website/images/32.jpg" alt="The Sunheri Set">
+                <div class="product-name">The Sunheri Set</div>
+                <div class="product-price">₹180</div>
+            </div>
+            <div class="product-card" onclick="showModal('silk', 16)">
+                <img src="Woven Wonders Website/images/20.jpg" alt="The Rainbow Silk Collection">
+                <div class="product-name">The Rainbow Silk Collection</div>
+                <div class="product-price">₹25/pair</div>
+            </div>
+            <div class="product-card" onclick="showModal('silk', 17)">
+                <img src="Woven Wonders Website/images/27.jpg" alt="The Prism Bangles Set">
+                <div class="product-name">The Prism Bangles Set</div>
+                <div class="product-price">₹20/pair</div>
+            </div>
+            <div class="product-card" onclick="showModal('silk', 18)">
+                <img src="Woven Wonders Website/images/25.jpg" alt="The Sister's Promise [Rakhi]">
+                <div class="product-name">The Sister's Promise [Rakhi]</div>
+                <div class="product-price">₹50/piece</div>
+            </div>
+        </div>
+    </div>
+    <!-- Enquiry Section -->
+    <div id="enquiry" class="section" style="display:none;">
+        <div class="section-title">📞 Contact & Enquiry</div>
+        <div class="contact-details">
+            <div><span>📍</span>Location: Ponda, Goa</div>
+            <div><span>📞</span>Contact Number: 7058444156</div>
+            <div><span>✉️</span>Email: parsekarvini@gmail.com</div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div id="modal" style="display:none;">
+        <div class="modal-bg" onclick="closeModal(event)">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <div class="modal-img">
+                    <img id="modal-img" src="" alt="">
+                </div>
+                <div class="modal-details">
+                    <div class="product-name" id="modal-name"></div>
+                    <div class="product-price" id="modal-price"></div>
+                    <button class="close-btn" onclick="closeModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Section navigation
+        function showSection(section, navLink) {
+            ['home','crochet','silk','enquiry'].forEach(id => {
+                document.getElementById(id).style.display = (id === section) ? 'block' : 'none';
+            });
+            // Update nav active state
+            if(navLink) {
+                document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                navLink.classList.add('active');
+            } else {
+                document.querySelectorAll('nav a').forEach(a => {
+                    if(a.textContent.trim().toLowerCase().includes(section)) {
+                        a.classList.add('active');
+                    } else {
+                        a.classList.remove('active');
+                    }
+                });
+            }
+            window.location.hash = section;
+        }
+        // Modal logic
+        const crochetProducts = [
+            {
+                img: "woven wonders website/images/1.jpg",
+                name: "Bow Keychain",
+                price: "₹80"
+            },
+            {
+                img: "woven wonders website/images/4.jpg",
+                name: "Floral Butterfly Keychain",
+                price: "₹150"
+            },
+            {
+                img: "woven wonders website/images/10.jpg",
+                name: "Victorian Rose Keychain",
+                price: "₹80"
+            },
+            {
+                img: "woven wonders website/images/11.jpg",
+                name: "Sunny Bloom Keychain",
+                price: "₹120"
+            },
+            {
+                img: "woven wonders website/images/12.jpg",
+                name: "Roselet Bloom Charm",
+                price: "₹120"
+            },
+            {
+                img: "woven wonders website/images/2.png",
+                name: "The Dainty Bow Phone Charm",
+                price: "₹60"
+            },
+            {
+                img: "woven wonders website/images/5.jpg",
+                name: "Ivory Bloom Phone Charm",
+                price: "₹90"
+            },
+            {
+                img: "woven wonders website/images/6.png",
+                name: "Rose Phone Charm",
+                price: "₹90"
+            },
+            {
+                img: "woven wonders website/images/8.jpg",
+                name: "Tulip Scrunchie",
+                price: "₹200"
+            },
+            {
+                img: "woven wonders website/images/9.jpg",
+                name: "Berry Bloom Scrunchie",
+                price: "₹200"
+            },
+            {
+                img: "woven wonders website/images/7.png",
+                name: "Forever Rose",
+                price: "₹200"
+            },
+            {
+                img: "woven wonders website/images/13.jpg",
+                name: "Midnight Blooms",
+                price: "₹200/Each"
+            },
+            {
+                img: "woven wonders website/images/3.png",
+                name: "Rose Hairclip",
+                price: "₹250"
+            },
+            {
+                img: "woven wonders website/images/14.jpg",
+                name: "Blue Bloom Earrings",
+                price: "₹80"
+            },
+            {
+                img: "woven wonders website/images/15.jpg",
+                name: "Cottage Core Heart Earrings",
+                price: "₹140"
+            }
+        ];
+        const silkProducts = [
+            {
+                img: "woven wonders website/images/16.jpg",
+                name: "The Midnight Pearl Bracelet",
+                price: "₹80"
+            },
+            {
+                img: "woven wonders website/images/28.jpg",
+                name: "Blue Harmony Bracelet",
+                price: "₹120"
+            },
+            {
+                img: "woven wonders website/images/29.jpg",
+                name: "Pink Harmony Bracelet",
+                price: "₹120"
+            },
+            {
+                img: "woven wonders website/images/17.jpg",
+                name: "Royal Bloom Jhumka Earrings",
+                price: "₹50"
+            },
+            {
+                img: "woven wonders website/images/33.jpg",
+                name: "Ivory Bloom Jhumka Earrings",
+                price: "₹50"
+            },
+            {
+                img: "woven wonders website/images/35.jpg",
+                name: "Forest Cross Bangles",
+                price: "₹80"
+            },
+            {
+                img: "woven wonders website/images/34.jpg",
+                name: "The Aurora Braid Bangle",
+                price: "₹120"
+            },
+            {
+                img: "woven wonders website/images/19.jpg",
+                name: "The Rhythm wrap Bangle",
+                price: "₹120"
+            },
+            {
+                img: "woven wonders website/images/18.jpg",
+                name: "Twilight Bangles",
+                price: "₹80"
+            },
+            {
+                img: "woven wonders website/images/22.jpg",
+                name: "Tricolor Serenity Bangles",
+                price: "₹50/Set"
+            },
+            {
+                img: "woven wonders website/images/23.jpg",
+                name: "Twilight Bangle Set",
+                price: "₹250"
+            },
+            {
+                img: "woven wonders website/images/21.jpg",
+                name: "The Festive Clover Bangles",
+                price: "₹150/piece"
+            },
+            {
+                img: "woven wonders website/images/24.jpg",
+                name: "Golden Ember Bangles",
+                price: "₹300"
+            },
+            {
+                img: "woven wonders website/images/30.jpg",
+                name: "Crimson Bloom Bangles",
+                price: "₹120"
+            },
+            {
+                img: "woven wonders website/images/31.jpg",
+                name: "Neelambari Bangle Set",
+                price: "₹150"
+            },
+            {
+                img: "woven wonders website/images/32.jpg",
+                name: "The Sunheri Set",
+                price: "₹180"
+            },
+            {
+                img: "woven wonders website/images/20.jpg",
+                name: "The Rainbow Silk Collection",
+                price: "₹25/pair"
+            },
+            {
+                img: "woven wonders website/images/27.jpg",
+                name: "The Prism Bangles Set",
+                price: "₹20/pair"
+            },
+            {
+                img: "woven wonders website/images/25.jpg",
+                name: "The Sister's Promise [Rakhi]",
+                price: "₹50/piece"
+            }
+
+        ];
+        function showModal(section, idx) {
+            let product = section === 'crochet' ? crochetProducts[idx] : silkProducts[idx];
+            document.getElementById('modal-img').src = product.img;
+            document.getElementById('modal-img').alt = product.name;
+            document.getElementById('modal-name').textContent = product.name;
+            document.getElementById('modal-price').textContent = product.price;
+            document.getElementById('modal').style.display = 'block';
+            // Modal color styling
+            if(section === 'crochet') {
+                document.getElementById('modal-name').style.color = 'var(--crochet-name)';
+                document.getElementById('modal-price').style.color = 'var(--crochet-price)';
+                document.querySelector('.close-btn').style.background = 'var(--button-bg)';
+                document.querySelector('.close-btn').style.color = 'var(--button-text)';
+            } else {
+                document.getElementById('modal-name').style.color = 'var(--silk-name)';
+                document.getElementById('modal-price').style.color = 'var(--silk-price)';
+                document.querySelector('.close-btn').style.background = 'var(--button-bg)';
+                document.querySelector('.close-btn').style.color = 'var(--button-text)';
+            }
+        }
+        function closeModal(e) {
+            if(e && e.target !== document.querySelector('.modal-bg')) return;
+            document.getElementById('modal').style.display = 'none';
+        }
+        // Hash navigation support
+        window.addEventListener('hashchange', () => {
+            let section = location.hash.replace('#','');
+            if(['home','crochet','silk','enquiry'].includes(section)) {
+                showSection(section);
+            }
+        });
+        // Initial load
+        window.onload = function() {
+            let section = location.hash.replace('#','');
+            if(['home','crochet','silk','enquiry'].includes(section)) {
+                showSection(section);
+            } else {
+                showSection('home');
+            }
+        };
+    </script>
